@@ -31,4 +31,6 @@ public class GameCell {
     public String getCoordinateHash() {
         return this.myCoordinates.toString();
     }
+
+    public Point getCoordinates(){ return this.myCoordinates; }
 }
