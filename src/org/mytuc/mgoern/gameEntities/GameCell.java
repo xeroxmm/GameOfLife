@@ -1,6 +1,6 @@
-package com.github.xeroxmm.gameEntities;
+package org.mytuc.mgoern.gameEntities;
 
-import com.github.xeroxmm.gameContainer.Point;
+import org.mytuc.mgoern.gameContainer.Point;
 
 import java.util.ArrayList;
 

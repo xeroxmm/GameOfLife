@@ -1,4 +1,4 @@
-package com.github.xeroxmm.gameContainer;
+package org.mytuc.mgoern.gameContainer;
 
 public class Point {
     public int x;

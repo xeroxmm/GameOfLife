@@ -1,4 +1,4 @@
-package com.github.xeroxmm.gameEntities;
+package org.mytuc.mgoern.gameEntities;
 
 import java.util.HashMap;
 
