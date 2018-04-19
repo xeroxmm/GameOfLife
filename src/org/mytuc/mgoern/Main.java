@@ -1,14 +1,14 @@
-package com.github.xeroxmm;
+package org.mytuc.mgoern;
 
-import com.github.xeroxmm.gameEntities.GameBoard;
-import com.github.xeroxmm.gameTools.GameConfig;
-import com.github.xeroxmm.gameTools.GameObserver;
+import org.mytuc.mgoern.gameEntities.GameBoard;
+import org.mytuc.mgoern.gameEntities.GameConfiguration;
+import org.mytuc.mgoern.tools.GameObserver;
 
 public class Main {
     public static void main(String[] args) {
         int boardSize = 30;
 
-        GameConfig config = new GameConfig("config.cfg");
+        GameConfiguration config = new GameConfiguration("config.cfg");
         GameBoard board = new GameBoard(boardSize, boardSize, false);
         GameObserver observer = new GameObserver( board );
 

@@ -4,6 +4,7 @@ import org.mytuc.mgoern.tools.Console;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class GameConfiguration {
     private int[][] gameTemplateBlinker = new int[][]{{0,1},{1,0},{1,1},{1,2},{2,1}};
     private int[][] gameTemplateGiven;
 
-    private HashMap<String, GameCell> startCells = new HashMap<>();
+    private ArrayList<GameCell> startCells = new ArrayList<>();
 
     public GameConfiguration(String pathToFile){
         this.pathToFile = pathToFile;
@@ -21,14 +22,14 @@ public class GameConfiguration {
             this.parseFile();
         } catch (FileNotFoundException e){
             Console.log( "File not found ("+this.pathToFile+"), loading defaults" );
-        } catch(Exception e){
+        } catch(ArrayIndexOutOfBoundsException e){
             Console.log("Array Size mismatch. CFG with more than one single Number?");
         } finally {
             this.loadConfig();
         }
     }
 
-    private void parseFile() throws FileNotFoundException, Exception {
+    private void parseFile() throws FileNotFoundException, ArrayIndexOutOfBoundsException {
         int arraySize = 0;
         int next = 0;
         boolean isCommentArea = false;
@@ -55,7 +56,7 @@ public class GameConfiguration {
                 if(gameTemplateGiven == null){
                     this.gameTemplateGiven = new int[arraySize][2];
                 } else if(this.gameTemplateGiven.length != arraySize)
-                    throw new Exception();
+                    throw new ArrayIndexOutOfBoundsException();
 
                 this.gameTemplateGiven[ next ] = new int[]{Integer.parseInt(parts[0]), Integer.parseInt(parts[1])};
                 next++;
@@ -75,11 +76,11 @@ public class GameConfiguration {
     private void loadGameTemplate(int[][] gameTemplate) {
         for (int[] aSimplePoint : gameTemplate) {
             GameCell c = new GameCell(aSimplePoint[0], aSimplePoint[1]);
-            this.startCells.put(c.getCoordinateHash(), c);
+            this.startCells.add(c);
         }
     }
 
-    public HashMap<String, GameCell> getStartCells(){
+    public ArrayList<GameCell> getStartCells(){
         return this.startCells;
     }
 }

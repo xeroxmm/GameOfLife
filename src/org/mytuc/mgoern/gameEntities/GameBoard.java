@@ -1,7 +1,5 @@
 package org.mytuc.mgoern.gameEntities;
 
-import com.github.xeroxmm.gameTools.GameConfig;
-
 import java.util.HashMap;
 
 public class GameBoard {
@@ -17,7 +15,7 @@ public class GameBoard {
         this.height = height;
         this.isSpheric = isSphere;
 
-        this.relevantCells = new HashMap<String, GameCell>();
+        this.relevantCells = new HashMap<>();
     }
 
     public boolean isValidCellCoordinate(int x, int y){
@@ -34,8 +32,8 @@ public class GameBoard {
         return true;
     }
 
-    public void initByConfig(GameConfig config) {
-        for(GameCell startCell : config.getCells()){
+    public void initByConfig(GameConfiguration config) {
+        for(GameCell startCell : config.getStartCells()){
             this.isCellBirthSuccessful( startCell.getCoordinates().x, startCell.getCoordinates().y );
         }
     }

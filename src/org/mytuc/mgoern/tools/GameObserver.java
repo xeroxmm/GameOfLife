@@ -1,6 +1,6 @@
-package com.github.xeroxmm.gameTools;
+package org.mytuc.mgoern.tools;
 
-import com.github.xeroxmm.gameEntities.GameBoard;
+import org.mytuc.mgoern.gameEntities.GameBoard;
 
 import java.util.Scanner;
 
