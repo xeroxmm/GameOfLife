@@ -6,18 +6,20 @@ import org.mytuc.mgoern.tools.GameObserver;
 
 public class Main {
     public static void main(String[] args) {
-        int boardSize = 30;
+        int boardSize = 20;
 
-        GameConfiguration config = new GameConfiguration("config.cfg");
-        GameBoard board = new GameBoard(boardSize, boardSize, false);
+        GameConfiguration config = new GameConfiguration("resources/config.cfg");
+        GameBoard board = new GameBoard(boardSize, boardSize, true);
         GameObserver observer = new GameObserver( board );
 
         board.initByConfig( config );
 
         do {
-            board.doGameOfLife();
             board.drawBoard();
             board.printStatusMessage();
+            observer.waitForKeypress();
+
+            board.doGameOfLife();
         } while( observer.hasNextGeneration() );
 
         if(observer.hasError())

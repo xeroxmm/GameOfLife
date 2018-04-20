@@ -1,20 +1,20 @@
 package org.mytuc.mgoern.gameEntities;
 
+import org.mytuc.mgoern.gameContainer.Point;
 import org.mytuc.mgoern.tools.Console;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class GameConfiguration {
     private String pathToFile;
     private int gameTemplateToLoad = 0;
-    private int[][] gameTemplateBlinker = new int[][]{{0,1},{1,0},{1,1},{1,2},{2,1}};
+    private int[][] gameTemplateStar = new int[][]{{0,1},{1,0},{1,1},{1,2},{2,1}};
     private int[][] gameTemplateGiven;
 
-    private ArrayList<GameCell> startCells = new ArrayList<>();
+    private ArrayList<Point> startCells = new ArrayList<>();
 
     public GameConfiguration(String pathToFile){
         this.pathToFile = pathToFile;
@@ -38,7 +38,7 @@ public class GameConfiguration {
         while(scanner.hasNextLine()){
             String line = scanner.nextLine();
             line = line.trim();
-            String[] parts = line.split(" ");
+            String[] parts = line.split("\\s+");
             if(line.charAt(0) == '/' && line.charAt(1) == '*') {
                 isCommentArea = true;
                 continue;
@@ -53,7 +53,7 @@ public class GameConfiguration {
                     arraySize = Character.getNumericValue( parts[0].charAt( 0 ));
                 }
             } else if(parts.length == 2 && !parts[0].isEmpty() && !parts[1].isEmpty()){
-                if(gameTemplateGiven == null){
+                if(this.gameTemplateGiven == null){
                     this.gameTemplateGiven = new int[arraySize][2];
                 } else if(this.gameTemplateGiven.length != arraySize)
                     throw new ArrayIndexOutOfBoundsException();
@@ -63,24 +63,30 @@ public class GameConfiguration {
             }
         }
         scanner.close();
+
+        if(this.gameTemplateGiven != null && this.gameTemplateGiven.length > 0)
+            this.gameTemplateToLoad = 99;
     }
 
     private void loadConfig(){
         switch( this.gameTemplateToLoad ){
+            case 99:
+                this.loadGameTemplate( this.gameTemplateGiven );
+                break;
             case 0:
             default:
-                this.loadGameTemplate( this.gameTemplateBlinker );
+                this.loadGameTemplate( this.gameTemplateStar );
         }
     }
 
     private void loadGameTemplate(int[][] gameTemplate) {
         for (int[] aSimplePoint : gameTemplate) {
-            GameCell c = new GameCell(aSimplePoint[0], aSimplePoint[1]);
+            Point c = new Point(aSimplePoint[0], aSimplePoint[1]);
             this.startCells.add(c);
         }
     }
 
-    public ArrayList<GameCell> getStartCells(){
+    public ArrayList<Point> getStartCells(){
         return this.startCells;
     }
 }

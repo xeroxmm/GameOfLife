@@ -106,12 +106,18 @@ public class GameObserver {
         resetAllConfigs();
         this.useIterationOnKeypressAll = true;
     }
-    public void setUseIterationByKeypress(char keyChar){
-        resetAllConfigs();
-        this.useIterationByKeypress = keyChar;
-    }
     public void setIterationTimer(int time){
         resetAllConfigs();
         this.useIterationByTime = time;
+    }
+
+    public void waitForKeypress() {
+        try{
+            System.in.read();
+        }
+        catch(Exception e){
+            Console.log("Error while EnterKeyPress");
+            System.exit( 1 );
+        }
     }
 }
